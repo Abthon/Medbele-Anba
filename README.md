@@ -78,7 +78,6 @@ If you encounter any issues or have questions about our library management syste
 
 This project is licensed under the [MIT License](LICENSE). Feel free to use, modify, and distribute it as per the terms of the license.
 
-We hope you enjoy working with መድብለ-አምባ, our library management system!
 
 ![Project Screenshot](comming/soon)
 
