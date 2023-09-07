@@ -37,7 +37,6 @@ Welcome to መድብለ-አምባ, our library management system project! This p
 │   │   ├── templates/ (HTML Templates)
 │   │   ├── manage.py (Django Management Script)
 │   ├── requirements.txt (Python Dependency List)
-
 ```
 
 - **`flutter_app/`**: This directory houses the source code for our Flutter mobile app. Explore the `lib/` folder for app logic and the `android/` and `ios/` folders for platform-specific code.
