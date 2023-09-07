@@ -41,7 +41,7 @@ Welcome to መድብለ-አምባ, our library management system project! This p
 
 - **`django_backend/`**: In this directory, you'll find the Django rest api that powers our library management system. 
 
-Please note that when you browse this repository on GitHub, you'll encounter these two directories directly at the top level, without a parent folder named `መድብለ-አምባ/`. This organization is designed for simplicity and actually also adheres to Git best practices.
+Please note that when you browse this repository on GitHub, you'll encounter these two directories directly at the top level, without a parent folder named `መድብለ-አምባ/`. This organization is designed for simplicity.
 
 ## Getting Started
 
