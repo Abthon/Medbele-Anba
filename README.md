@@ -22,7 +22,7 @@ Welcome to መድብለ-አምባ, our library management system project! This p
 │   │   │   ├── settings.py
 │   │   │   ├── urls.py
 │   │   │   ├── wsgi.py
-│   │   ├── library_app/ (Django App for the Library)
+│   │   ├── library_app/ (Django's RestApi app for the Library)
 │   │   │   ├── __init__.py
 │   │   │   ├── admin.py
 │   │   │   ├── apps.py
