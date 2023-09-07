@@ -37,7 +37,6 @@ Welcome to መድብለ-አምባ, our library management system project! This p
 │   │   ├── templates/ (HTML Templates)
 │   │   ├── manage.py (Django Management Script)
 │   ├── requirements.txt (Python Dependency List)
-
 ```
 
 - **`flutter_app/`**: This directory houses the source code for our Flutter mobile app. Explore the `lib/` folder for app logic and the `android/` and `ios/` folders for platform-specific code.
@@ -79,7 +78,6 @@ If you encounter any issues or have questions about our library management syste
 
 This project is licensed under the [MIT License](LICENSE). Feel free to use, modify, and distribute it as per the terms of the license.
 
-We hope you enjoy working with መድብለ-አምባ, our library management system!
 
 ![Project Screenshot](comming/soon)
 
