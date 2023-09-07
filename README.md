@@ -33,8 +33,6 @@ Welcome to መድብለ-አምባ, our library management system project! This p
 │   │   │   ├── tests.py
 │   │   │   ├── views.py
 │   │   ├── media/ (User-Uploaded Media Files)
-│   │   ├── static/ (Static Files)
-│   │   ├── templates/ (HTML Templates)
 │   │   ├── manage.py (Django Management Script)
 │   ├── requirements.txt (Python Dependency List)
 ```
