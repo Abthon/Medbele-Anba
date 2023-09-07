@@ -1,13 +1,11 @@
-Certainly, here's the updated README with the project name "መድብለ-አምባ" and the goal of creating a library management system:
 
-```markdown
+
 # መድብለ-አምባ Library Management System
 
 Welcome to መድብለ-አምባ, our library management system project! This repository combines the power of Django for the backend and Flutter for the frontend to create an efficient library management system.
 
 ## Project Structure
-
-```plaintext
+```markdown
 መድብለ-አምባ/
 ├── flutter_app/
 │   ├── lib/
