@@ -81,6 +81,5 @@ This project is licensed under the [MIT License](LICENSE). Feel free to use, mod
 
 We hope you enjoy working with መድብለ-አምባ, our library management system!
 
-![Project Screenshot](screenshots/screenshot.png)
-```
+![Project Screenshot](comming/soon)
 
