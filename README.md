@@ -1,4 +1,4 @@
-Certainly, here's the updated README with the project name "መድብለ-አምባ" and the goal of creating a library management system:
+
 
 ```markdown
 # መድብለ-አምባ Library Management System
