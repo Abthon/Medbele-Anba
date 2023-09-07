@@ -15,29 +15,29 @@ Welcome to መድብለ-አምባ, our library management system project! This p
 │   ├── ios/
 │   ├── ...
 ├── django_backend/
-|   ├── library_app/ (Django App for the Library)
-│   │   ├── __init__.py
-│   │   ├── admin.py
-│   │   ├── apps.py
-│   │   ├── migrations/
-│   │   ├── models.py
-│   │   ├── serializers.py
-│   │   ├── tests.py
-│   │   ├── views.py
-│   │   └── ...
-├   ├── library_project/ (Django Project Configuration)
-│   │   ├── __init__.py
-│   │   ├── asgi.py
-│   │   ├── settings.py
-│   │   ├── urls.py
-│   │   ├── wsgi.py
-│   │   └── ...
-├   ├── media/ (User-Uploaded Media Files)
-├   ├── static/ (Static Files)
-├   ├── templates/ (HTML Templates)
-├   ├── manage.py (Django Management Script)
-├   ├── requirements.txt (Python Dependency List)
-└   └── ....
+│   ├── library_project/ 
+│   │   ├── library_project/ (Django Project Configuration)
+│   │   │   ├── __init__.py
+│   │   │   ├── asgi.py
+│   │   │   ├── settings.py
+│   │   │   ├── urls.py
+│   │   │   ├── wsgi.py
+│   │   ├── library_app/ (Django App for the Library)
+│   │   │   ├── __init__.py
+│   │   │   ├── admin.py
+│   │   │   ├── apps.py
+│   │   │   ├── migrations/
+│   │   │   │   ├── __init__.py
+│   │   │   ├── models.py
+│   │   │   ├── serializers.py
+│   │   │   ├── tests.py
+│   │   │   ├── views.py
+│   │   ├── media/ (User-Uploaded Media Files)
+│   │   ├── static/ (Static Files)
+│   │   ├── templates/ (HTML Templates)
+│   │   ├── manage.py (Django Management Script)
+│   ├── requirements.txt (Python Dependency List)
+
 ```
 
 - **`flutter_app/`**: This directory houses the source code for our Flutter mobile app. Explore the `lib/` folder for app logic and the `android/` and `ios/` folders for platform-specific code.
