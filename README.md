@@ -3,7 +3,7 @@
 
 Welcome to መድብለ-አምባ, our library management system project! This project combines the power of Django for the backend and Flutter for the frontend to create an efficient library management system.
 
-## Project Structure
+## Project Folder Structure
 
 ```markdown
 መድብለ-አምባ/
