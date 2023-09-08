@@ -3,7 +3,7 @@
 
 Welcome to መድብለ-አምባ, our library management system project! This project combines the power of Django for the backend and Flutter for the frontend to create an efficient library management system.
 
-## Project Structure
+## Project Folder Structure
 
 ```markdown
 መድብለ-አምባ/
@@ -22,7 +22,7 @@ Welcome to መድብለ-አምባ, our library management system project! This p
 │   │   │   ├── settings.py
 │   │   │   ├── urls.py
 │   │   │   ├── wsgi.py
-│   │   ├── library_app/ (Django App for the Library)
+│   │   ├── library_app/ (Django's RestApi app for the Library)
 │   │   │   ├── __init__.py
 │   │   │   ├── admin.py
 │   │   │   ├── apps.py
@@ -33,8 +33,6 @@ Welcome to መድብለ-አምባ, our library management system project! This p
 │   │   │   ├── tests.py
 │   │   │   ├── views.py
 │   │   ├── media/ (User-Uploaded Media Files)
-│   │   ├── static/ (Static Files)
-│   │   ├── templates/ (HTML Templates)
 │   │   ├── manage.py (Django Management Script)
 │   ├── requirements.txt (Python Dependency List)
 ```
@@ -43,7 +41,7 @@ Welcome to መድብለ-አምባ, our library management system project! This p
 
 - **`django_backend/`**: In this directory, you'll find the Django rest api that powers our library management system. 
 
-Please note that when you browse this repository on GitHub, you'll encounter these two directories directly at the top level, without a parent folder named `መድብለ-አምባ/`. This organization is designed for simplicity and actually also adheres to Git best practices.
+Please note that when you browse this repository on GitHub, you'll encounter these two directories directly at the top level, without a parent folder named `መድብለ-አምባ/`. This organization is designed for simplicity.
 
 ## Getting Started
 
