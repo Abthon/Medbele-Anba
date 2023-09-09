@@ -1,5 +1,5 @@
 class Book {
-  // Book default constructor
+  // Book's default constructor
   Book({
     required this.id,
     required this.isbn,
@@ -7,13 +7,12 @@ class Book {
     required this.author,
   });
 
-  // Book model fields
   int id;
   int isbn;
   String title;
   String author;
 
-  // Book factory constructor
+  // Book's factory constructor
   factory Book.fromJson(Map<String, dynamic> json) {
     return Book(
       id: json['id'] as int,
