@@ -1,5 +1,5 @@
 class Book {
-  // Book default constructor
+  // Create book default constructor
   Book({
     required this.id,
     required this.isbn,
@@ -7,13 +7,12 @@ class Book {
     required this.author,
   });
 
-  // Book model fields
   int id;
   int isbn;
   String title;
   String author;
 
-  // Book factory constructor
+  // Create book's factory constructor
   factory Book.fromJson(Map<String, dynamic> json) {
     return Book(
       id: json['id'] as int,
@@ -21,5 +20,15 @@ class Book {
       title: json['title'] as String,
       author: json['author'] as String,
     );
+  }
+
+  // Convert books object to JSON map
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'isbn': isbn,
+      'title': title,
+      'author': author,
+    };
   }
 }
