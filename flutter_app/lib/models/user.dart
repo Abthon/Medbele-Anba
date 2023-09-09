@@ -1,5 +1,5 @@
 class User {
-  // Default user's constructor
+  // User's default constructor
   User({
     required this.name,
     required this.username,
