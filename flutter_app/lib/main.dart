@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/routes/routes.dart';
+import 'screens/onboarding/onboarding_screen.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() {
-  runApp(const App());
+  runApp(
+    const ProviderScope(
+      child: MyApp(),
+    ),
+  );
 }
 
-class App extends StatelessWidget {
-  const App({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      debugShowCheckedModeBanner: true,
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Medbele Anba',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      routerDelegate: Routes.goRouter.routerDelegate,
-      routeInformationParser: Routes.goRouter.routeInformationParser,
+      home: OnBoardingScreen(),
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_app/screens/authentication/views/signup.dart';
 import 'package:rive/rive.dart';
 
 class GetStartedButton extends StatefulWidget {
@@ -43,16 +44,20 @@ class _GetStartedButtonState extends State<GetStartedButton> {
   }
 
   void _onTapDown(TapDownDetails details) {
-    _hoverInput?.value = true;
     _clickInput?.value = true;
   }
 
   void _onTapUp(TapUpDetails details) {
-    _clickInput?.value = false;
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(
+        builder: (BuildContext context) => const SignUp(),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
+    _hoverInput?.value = true;
     return SizedBox(
       width: 300,
       height: 300,

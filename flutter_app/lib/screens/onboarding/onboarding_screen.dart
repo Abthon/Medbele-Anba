@@ -19,9 +19,10 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.only(top: 8.0),
-        child: Stack(
+        child: Column(
           children: [
             Expanded(
               child: PageView(
@@ -38,43 +39,34 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 ],
               ),
             ),
-            Positioned(
-              left: 0,
-              right: 0,
-              top: size.height - 170,
-              child: Container(
-                height: 13.0,
-                width: size.width,
-                margin:
-                    EdgeInsets.only(left: (size.width / 2) - 55, right: 120),
-                child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: 3,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Container(
-                        margin: const EdgeInsets.only(left: 10.0),
-                        width: currentPage == index ? 35 : 13,
-                        decoration: BoxDecoration(
-                          color: currentPage == index
-                              ? const Color.fromARGB(255, 133, 128, 234)
-                              : Colors.black12,
-                          borderRadius: BorderRadius.circular(
-                              currentPage == index ? 5 : 13),
-                        ),
-                      );
-                    }),
-              ),
+            Container(
+              color: Colors.white,
+              height: 13.0,
+              width: size.width,
+              margin: EdgeInsets.only(
+                  left: (size.width / 2) - 55, right: 120, bottom: 10.0),
+              child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: 3,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Container(
+                      margin: const EdgeInsets.only(left: 10.0),
+                      width: currentPage == index ? 35 : 13,
+                      decoration: BoxDecoration(
+                        color: currentPage == index
+                            ? const Color.fromARGB(255, 133, 128, 234)
+                            : Colors.black12,
+                        borderRadius: BorderRadius.circular(
+                            currentPage == index ? 5 : 13),
+                      ),
+                    );
+                  }),
             ),
-            Positioned(
-              top: size.height - 120,
-              child: ClipRect(
-                child: SizedBox(
-                  height: 140,
-                  width: size.width,
-                  child: const GetStartedButton(),
-                ),
-              ),
-            )
+            SizedBox(
+              height: 140,
+              width: size.width,
+              child: GetStartedButton(),
+            ),
           ],
         ),
       ),

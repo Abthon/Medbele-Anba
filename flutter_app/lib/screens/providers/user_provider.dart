@@ -1,7 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:flutter/material.dart';
-
 import '../../utils/constants.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -49,12 +47,13 @@ class UserController extends StateNotifier<User> {
 
     if (state.profileImage != null) {
       final file = await http.MultipartFile.fromPath(
-          'profileImage ', state.profileImage!.path);
+          'profile_image ', state.profileImage!.path);
       request.files.add(file);
     }
 
+    print(state.profileImage!.path);
     final response = await request.send();
-
+    print(response.statusCode);
     if (response.statusCode == 201) {
       print('User created successfully');
     } else {
@@ -63,23 +62,26 @@ class UserController extends StateNotifier<User> {
   }
 
   Future<bool> authenticateUser() async {
+    print("Called a");
     // Check if the Token is already in the user device before going to the server side
     final prefs = await SharedPreferences.getInstance();
-    if (prefs.containsKey('token')) {
+    if (prefs.containsKey('accessx')) {
       return true; // the user has already the token key in his device in this case.
     } else {
       final response = await http.post(
-        Uri.parse('${baseUrl}login/'),
+        Uri.parse('${baseUrl}api/token/'),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode(
-            {'username': state.username, 'password': state.password}),
+            {'user_name': state.username, 'password': state.password}),
       );
 
       if (response.statusCode == 200) {
         final body = jsonDecode(response.body);
-        print('My token : ${body['token']}');
+        // print('My token : ${body['access']}');
+        // print('My refresh token : ${body['refresh']}');
         // Save the user token locally in the users device
-        prefs.setString('token', body['token']);
+        prefs.setString('access', body['access']);
+        prefs.setString('refresh', body['refresh']);
         return true;
       } else {
         return false; // the user inputs an invalid input as his credentials in this case
@@ -88,19 +90,20 @@ class UserController extends StateNotifier<User> {
   }
 }
 
-final userDataProvider = Provider<UserData>((ref) => UserData());
+final userDataProvider =
+    FutureProvider<Map<String, dynamic>>((ref) => UserData().fetchUserData());
 
 class UserData {
   Map<String, dynamic> userData = {};
 
-  Future<Map> fetchUserData() async {
+  Future<Map<String, dynamic>> fetchUserData() async {
+    print("called");
     final prefs = await SharedPreferences.getInstance();
-    final token = prefs.getString('token');
-    print('token : $token');
+    final token = prefs.getString('access');
     final response = await http.get(
       Uri.parse('${baseUrl}user/profile/'),
       headers: {
-        'Authorization': 'Token $token',
+        'Authorization': 'Bearer $token',
       },
     );
 

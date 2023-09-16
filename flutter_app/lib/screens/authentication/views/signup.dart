@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_app/screens/authentication/views/login.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
@@ -90,7 +91,7 @@ class _SignUpState extends State<SignUp> {
                               child: Consumer(
                                 builder: (context, ref, child) {
                                   return TextFormField(
-                                    autofocus: true,
+                                    // autofocus: true,
                                     decoration: InputDecoration(
                                       focusedBorder: OutlineInputBorder(
                                         borderSide: const BorderSide(
@@ -149,7 +150,7 @@ class _SignUpState extends State<SignUp> {
                             child: Consumer(
                               builder: (context, ref, child) {
                                 return TextFormField(
-                                  autofocus: true,
+                                  // autofocus: true,
                                   decoration: InputDecoration(
                                     focusedBorder: OutlineInputBorder(
                                       borderSide: const BorderSide(
@@ -209,7 +210,7 @@ class _SignUpState extends State<SignUp> {
                                 return Consumer(
                                   builder: (context, ref, child) {
                                     return TextFormField(
-                                      autofocus: true,
+                                      // autofocus: true,
                                       decoration: InputDecoration(
                                         focusedBorder: const OutlineInputBorder(
                                           borderSide: BorderSide(
@@ -272,7 +273,7 @@ class _SignUpState extends State<SignUp> {
                             child: Consumer(
                               builder: (context, ref, child) {
                                 return TextFormField(
-                                  autofocus: true,
+                                  // autofocus: true,
                                   decoration: InputDecoration(
                                     focusedBorder: OutlineInputBorder(
                                       borderSide: const BorderSide(
@@ -331,7 +332,7 @@ class _SignUpState extends State<SignUp> {
                               child: Consumer(
                                 builder: (context, ref, child) {
                                   return TextFormField(
-                                    autofocus: true,
+                                    // autofocus: true,
                                     obscureText: true,
                                     decoration: InputDecoration(
                                       focusedBorder: OutlineInputBorder(
@@ -383,10 +384,10 @@ class _SignUpState extends State<SignUp> {
                               ),
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 5),
+                          const Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 5),
                             child: Row(
-                              children: const <Widget>[
+                              children: <Widget>[
                                 Checkbox(
                                   value: false,
                                   onChanged: null,
@@ -406,7 +407,7 @@ class _SignUpState extends State<SignUp> {
                                     await ref
                                         .read(userControllerProvider.notifier)
                                         .createUser();
-                                    GoRouter.of(context).go('/login');
+                                    print("Alkuwal");
                                   }
                                 },
                                 child: Container(
@@ -444,7 +445,11 @@ class _SignUpState extends State<SignUp> {
         floatingActionButton: FloatingActionButton(
           child: const Icon(Icons.login),
           onPressed: () {
-            GoRouter.of(context).go('/login');
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(
+                builder: (BuildContext context) => const Login(),
+              ),
+            );
           },
         ),
       ),

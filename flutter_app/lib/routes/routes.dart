@@ -6,10 +6,10 @@ import 'package:go_router/go_router.dart';
 
 class Routes {
   static final goRouter = GoRouter(
-    initialLocation: '/onboardingScreen',
+    initialLocation: '/',
     routes: [
       GoRoute(
-        path: '/onboardingScreen',
+        path: '/',
         pageBuilder: (context, state) => MaterialPage(
           child: OnBoardingScreen(),
         ),
@@ -20,7 +20,7 @@ class Routes {
       ),
       GoRoute(
         path: '/login',
-        builder: (context, state) => const Login(),
+        pageBuilder: (context, state) => const MaterialPage(child: Login()),
       ),
       // GoRoute(path: '/home', builder: (context, state) => App())
     ],

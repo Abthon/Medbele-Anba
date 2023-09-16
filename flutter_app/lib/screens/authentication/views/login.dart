@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/App/app.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../providers/user_provider.dart';
 
@@ -179,15 +181,19 @@ class _LoginState extends State<Login> {
                           Consumer(
                             builder: (context, ref, child) {
                               return TextButton(
-                                onPressed: () async {
+                                onPressed: () {
                                   if (_formKey.currentState!.validate()) {
-                                    await ref
+                                    ref
                                         .read(userControllerProvider.notifier)
                                         .authenticateUser()
                                         .then((value) {
                                       if (value) {
-                                        GoRouter.of(context).go('/home');
-                                        print("arrived here");
+                                        Navigator.of(context).pushReplacement(
+                                          MaterialPageRoute(
+                                            builder: (BuildContext context) =>
+                                                App(),
+                                          ),
+                                        );
                                       } else {
                                         // show error alert dialoge to the user!
                                       }
@@ -196,9 +202,9 @@ class _LoginState extends State<Login> {
                                 },
                                 child: Container(
                                   width: 150,
-                                  height: 35,
+                                  height: 46,
                                   decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(30),
+                                    borderRadius: BorderRadius.circular(10),
                                     gradient: const LinearGradient(
                                         begin: Alignment.topRight,
                                         end: Alignment.bottomLeft,
@@ -207,10 +213,14 @@ class _LoginState extends State<Login> {
                                           Color(0xff2827e9)
                                         ]),
                                   ),
-                                  child: const Center(
+                                  child: Center(
                                     child: Text(
                                       'Log In',
-                                      style: TextStyle(color: Colors.white),
+                                      style: GoogleFonts.delius(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 18.0,
+                                      ),
                                     ),
                                   ),
                                 ),
