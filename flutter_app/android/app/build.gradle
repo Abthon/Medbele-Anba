@@ -1,3 +1,4 @@
+// ndkVersion "25.1.8937393"
 plugins {
     id "com.android.application"
     id "kotlin-android"
