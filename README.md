@@ -97,7 +97,7 @@ This project is licensed under the [MIT License](LICENSE). Feel free to use, mod
     <img src="https://github.com/Abthon/Medbele-Anba/blob/main/ScreenShots/photo_15_2023-09-18_04-23-42.jpg" alt="Screenshot 15" width="200" height="400">
     <img src="https://github.com/Abthon/Medbele-Anba/blob/main/ScreenShots/photo_16_2023-09-18_04-23-42.jpg" alt="Screenshot 16" width="200" height="400">
     <img src="https://github.com/Abthon/Medbele-Anba/blob/main/ScreenShots/photo_17_2023-09-18_04-23-42.jpg" alt="Screenshot 17" width="200" height="400">
-     <img src="https://github.com/Abthon/Medbele-Anba/blob/main/ScreenShots/Screenshot 2023-09-18 042013.jpg" alt="Screenshot 18" width="200" height="400">
+     <img src="https://github.com/Abthon/Medbele-Anba/blob/main/ScreenShots/Screenshot%202023-09-18%20042013.png" alt="Screenshot 18" width="200" height="400">
   </div>
 </div>
 
