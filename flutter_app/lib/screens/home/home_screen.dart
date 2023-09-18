@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import '../../App/widgets/bottom_navigation.dart';
-import '../providers/user_provider.dart';
-import '../../utils/constants.dart';
+import 'package:flutter_app/screens/home/vews/search_screen.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import '../../utils/constants.dart';
+import '../providers/book_provider.dart';
+import '../providers/user_provider.dart';
+import 'vews/books_detail_screen.dart';
 import 'widgets/custom_text_field.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -17,18 +18,12 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final _controller = TextEditingController();
 
-  void fetchData() {
-    final container = ProviderContainer();
-    final result =
-        container.read(userDataProvider); // Replace with your provider
-    container.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Consumer(
       builder: (context, ref, child) {
         final user = ref.watch(userDataProvider);
+        final books = ref.watch(bookDataProvider);
         return user.when(
           loading: () => const Center(
             child: CircularProgressIndicator(),
@@ -85,9 +80,30 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       CustomTextField(
                         keyboardType: TextInputType.text,
-                        suffixIcon: const Icon(
-                          Icons.search,
-                          color: AppConst.kBkDark,
+                        suffixIcon: GestureDetector(
+                          onTap: () async {
+                            await ref
+                                .read(searchBooksProvider)
+                                .searchBooks(_controller.text)
+                                .then(
+                              (books) {
+                                if (books.isEmpty) {
+                                  // show the alert dialoge
+                                } else {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          SearchResultsPage(books: books),
+                                    ),
+                                  );
+                                }
+                              },
+                            );
+                          },
+                          child: const Icon(
+                            Icons.search,
+                            color: AppConst.kBkDark,
+                          ),
                         ),
                         controller: _controller,
                         fillColor: Colors.white,
@@ -97,8 +113,72 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
               ),
-              body: const Column(
-                children: [],
+              body: books.when(
+                data: (bookData) {
+                  return Padding(
+                    padding: const EdgeInsets.only(left: 15.0),
+                    child: GridView.builder(
+                      gridDelegate:
+                          const SliverGridDelegateWithMaxCrossAxisExtent(
+                        maxCrossAxisExtent: 180.0,
+                        mainAxisSpacing: 20.0,
+                      ),
+                      physics: const BouncingScrollPhysics(),
+                      // scrollDirection: Axis.horizontal,
+                      itemCount: bookData.length,
+                      itemBuilder: (context, index) {
+                        final book = bookData[index];
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Expanded(
+                              child: GestureDetector(
+                                onTap: () {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          BookDetailPage(book: book),
+                                    ),
+                                  );
+                                },
+                                child: Container(
+                                  width: 120,
+                                  margin: const EdgeInsets.only(
+                                    left: 6.0,
+                                    right: 6.0,
+                                  ),
+                                  decoration: const BoxDecoration(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(20.0)),
+                                  ),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(20.0),
+                                    child: Image.network(
+                                      '$baseUrl${book.cover_image}',
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        );
+                      },
+                    ),
+                  );
+                },
+                error: (error, stackTrace) {
+                  return Center(
+                    child: Text(
+                      error.toString(),
+                    ),
+                  );
+                },
+                loading: () {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                },
               ),
             );
           },

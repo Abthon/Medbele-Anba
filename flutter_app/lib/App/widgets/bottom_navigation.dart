@@ -12,7 +12,7 @@ class CurvedNavigation extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return CurvedNavigationBar(
-      backgroundColor: Colors.grey.shade50,
+      backgroundColor: Colors.transparent,
       color: const Color(0xff5165EA),
       animationDuration: const Duration(milliseconds: 200),
       buttonBackgroundColor: const Color(0xff4A5AEA),

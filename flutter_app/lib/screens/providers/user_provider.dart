@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ffi';
 import 'dart:io';
 import '../../utils/constants.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -62,7 +63,6 @@ class UserController extends StateNotifier<User> {
   }
 
   Future<bool> authenticateUser() async {
-    print("Called a");
     // Check if the Token is already in the user device before going to the server side
     final prefs = await SharedPreferences.getInstance();
     if (prefs.containsKey('accessx')) {
@@ -77,8 +77,6 @@ class UserController extends StateNotifier<User> {
 
       if (response.statusCode == 200) {
         final body = jsonDecode(response.body);
-        // print('My token : ${body['access']}');
-        // print('My refresh token : ${body['refresh']}');
         // Save the user token locally in the users device
         prefs.setString('access', body['access']);
         prefs.setString('refresh', body['refresh']);
@@ -97,7 +95,7 @@ class UserData {
   Map<String, dynamic> userData = {};
 
   Future<Map<String, dynamic>> fetchUserData() async {
-    print("called");
+    print("fetching bruv jj");
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('access');
     final response = await http.get(
@@ -108,7 +106,6 @@ class UserData {
     );
 
     if (response.statusCode == 200) {
-      print(response.body);
       userData = json.decode(response.body);
       return userData;
     } else {

@@ -188,6 +188,7 @@ class _LoginState extends State<Login> {
                                         .authenticateUser()
                                         .then((value) {
                                       if (value) {
+                                        ref.refresh(userDataProvider);
                                         Navigator.of(context).pushReplacement(
                                           MaterialPageRoute(
                                             builder: (BuildContext context) =>

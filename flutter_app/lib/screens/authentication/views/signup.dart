@@ -392,7 +392,7 @@ class _SignUpState extends State<SignUp> {
                                   value: false,
                                   onChanged: null,
                                 ),
-                                Text('I accept RecipeBox policy and terms'),
+                                Text('I accept BookBox policy and terms'),
                               ],
                             ),
                           ),

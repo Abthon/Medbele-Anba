@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from library_app.models import CustomUser
-from library_app.models import Book, Borrow
+from library_app.models import Book, Borrow,Favorite
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -17,13 +17,33 @@ class BorrowedBookSerializer(serializers.ModelSerializer):
     book = serializers.SerializerMethodField()
 
     class Meta:
-        model = Borrow
-        fields = ('id', 'borrowed_date', 'return_date', 'quantity_borrowed', 'book')
+        model = Favorite
+        fields = ('book',)
 
     def get_book(self, obj):
         book = obj.book
         return {
+            'id' : book.id,
             'title': book.title,
             'author': book.author,
+            'cover_image': book.cover_image.url,
+            'isbn': book.isbn, 
+        }
+
+
+class FavoritedBookSerializer(serializers.ModelSerializer):
+    book = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Favorite
+        fields = ('book',)
+
+    def get_book(self, obj):
+        book = obj.book
+        return {
+            'id' : book.id,
+            'title': book.title,
+            'author': book.author,
+            'cover_image': book.cover_image.url,
             'isbn': book.isbn, 
         }

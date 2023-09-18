@@ -8,11 +8,13 @@ import 'package:flutter_app/screens/providers/page_number_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class App extends ConsumerWidget {
+  App({super.key});
+
   final List<Widget> pages = [
     const HomeScreen(),
-    const BorrowedBookScreen(),
+    const BorrowedBooksScreen(),
     const FavoriteScreen(),
-    const UserProfile()
+    UserProfile()
   ];
 
   @override

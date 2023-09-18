@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/screens/authentication/views/login.dart';
+import 'package:flutter_app/screens/onboarding/onboarding_screen.dart';
+import 'package:flutter_app/screens/providers/page_number_provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'widgets/profiler_viewer.dart';
 import '../providers/user_provider.dart';
@@ -9,7 +11,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 final tabIndexProvider = StateProvider<int>((ref) => 0);
 
 class UserProfile extends ConsumerWidget {
-  const UserProfile({Key? key}) : super(key: key);
+  UserProfile({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -46,6 +48,9 @@ class UserProfile extends ConsumerWidget {
                               message: "LogOut",
                               child: InkWell(
                                 onTap: () {
+                                  ref
+                                      .read(pageNumberProvider.notifier)
+                                      .setPage(0);
                                   Navigator.of(context).pushReplacement(
                                     MaterialPageRoute(
                                       builder: (BuildContext context) =>

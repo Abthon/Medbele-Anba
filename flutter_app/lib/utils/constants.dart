@@ -8,4 +8,4 @@ class AppConst {
 }
 
 const Color smallTextColor = Color(0xffAFAFAF);
-const baseUrl = 'http://192.168.1.4:8000/';
+const baseUrl = 'http://192.168.1.6:8000/';

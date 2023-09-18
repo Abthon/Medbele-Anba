@@ -10,8 +10,10 @@ from .views import (
     UserProfile,
     BorrowBookView,
     BookList,
-    BookDetail,
-    BorrowedBooksList
+    SearchBook,
+    BorrowedBooksList,
+    ToggleFavoriteView,
+    FavoritedBooksList
 )
 
 urlpatterns = [
@@ -19,8 +21,10 @@ urlpatterns = [
     path('', APIEndpoints.as_view(), name='home'),
     path('borrow/<int:book_id>/', BorrowBookView.as_view(), name='borrow-book'),
     path('books/', BookList.as_view(), name='books'),
-    path('book/<int:book_id>/', BookDetail.as_view(), name='book-detail'),
+    path('search/', SearchBook.as_view(), name='search-books'),
     path('borrowed-books/', BorrowedBooksList.as_view(), name='borrowed-books'),
+    path('favorite/<int:book_id>/', ToggleFavoriteView.as_view(), name='favorite'),
+    path('favorited-books/', FavoritedBooksList.as_view(), name='favorited -books'),
     
     #User related Endpoints
     path('users/', UserList.as_view(), name='users'),
@@ -30,5 +34,4 @@ urlpatterns = [
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('register/', Register.as_view(), name='register'),
-    
 ]
