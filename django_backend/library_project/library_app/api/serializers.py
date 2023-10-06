@@ -17,7 +17,7 @@ class BorrowedBookSerializer(serializers.ModelSerializer):
     book = serializers.SerializerMethodField()
 
     class Meta:
-        model = Favorite
+        model = Borrow
         fields = ('book',)
 
     def get_book(self, obj):
@@ -26,8 +26,10 @@ class BorrowedBookSerializer(serializers.ModelSerializer):
             'id' : book.id,
             'title': book.title,
             'author': book.author,
+            'quantity': book.quantity,
             'cover_image': book.cover_image.url,
             'isbn': book.isbn, 
+            'inserted_date': book.inserted_date,
         }
 
 
@@ -44,6 +46,8 @@ class FavoritedBookSerializer(serializers.ModelSerializer):
             'id' : book.id,
             'title': book.title,
             'author': book.author,
+            'quantity': book.quantity,
             'cover_image': book.cover_image.url,
             'isbn': book.isbn, 
+            'inserted_date': book.inserted_date,
         }

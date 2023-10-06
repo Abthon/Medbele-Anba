@@ -11,6 +11,7 @@ from django.urls import reverse
 from django.db import transaction
 import datetime
 from django.db.models import Q
+from .LinkedList import Node,LinkedList
 
 # 404 handler
 def handler404(request, exception):
@@ -65,7 +66,6 @@ class UserProfile(APIView):
     def get(self, request):
         # Retrieve the user's profile based on the authenticated user's ID
         user = CustomUser.objects.get(id=request.user.id)
-        print(type(user))
         
         # Serialize the user's profile data
         serializer = UserSerializer(user)
@@ -105,17 +105,13 @@ class Register(APIView):
             # Return a response with serializer errors
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-# API view for listing Books
+# API view for listing Books 
 class BookList(APIView):
     permission_classes = [IsAuthenticated]
     def get(self, request):
-        # Retrieve a list of all books
         books = Book.objects.all()
+        serializer = BookSerializer(books, many=True)
         
-        # Serialize the book data
-        serializer = BookSerializer(books, many=True) 
-        
-        # Return the serialized data in the response
         return Response(serializer.data, status=status.HTTP_200_OK)
     
 # API view for searching books
@@ -124,8 +120,8 @@ class SearchBook(APIView):
 
     def get(self, request):
         query = request.GET.get('query', '').strip()
-        print(query)
-        if(query == "author" or query == "title", query == "isbn"):
+        print(query)    
+        if(query == "author" or query == "title" or query == "isbn"):
             # sort = request.GET.get('sort', 'title')  # Default sort by title
             
             # Split the query by spaces
@@ -166,7 +162,7 @@ class SearchBook(APIView):
             
             # Filter the books based on the query parameter
             if query:
-                books = books.filter(
+                books = books.filter( 
                     Q(author__icontains=query) |
                     Q(title__icontains=query) |
                     Q(isbn=query)
@@ -176,7 +172,7 @@ class SearchBook(APIView):
             serializer = BookSerializer(books, many=True)
 
             # Return the serialized data in the response
-            return Response(serializer.data, status=status.HTTP_201_OK)
+            return Response(serializer.data, status=status.HTTP_200_OK)
     
     def sort_by_title(self, books):
         # Custom sorting algorithm for title (bubble sort)
@@ -189,7 +185,7 @@ class SearchBook(APIView):
 
     def sort_by_author(self, books):
         # Custom sorting algorithm for author (selection sort)
-        n = len(books)
+        n = len(books) 
         for i in range(n):
             min_idx = i
             for j in range(i + 1, n):
@@ -211,8 +207,8 @@ class SearchBook(APIView):
             books[j + 1] = key
         return books
 
-    
 class BorrowedBooksList(APIView):
+    permission_classes = [IsAuthenticated]
     def get(self, request):
         # get the user's object
         user = get_object_or_404(CustomUser, id=request.user.id)
@@ -273,7 +269,7 @@ class BorrowBookView(APIView):
                     user=request.user,
                     book=book,
                     borrowed_date=datetime.date.today(),
-                    quantity_borrowed=1,  # Set the quantity borrowed
+                    quantity_borrowed=1,  # this Sets the quantity borrowed
                 )
                 borrow.save()
 
@@ -286,3 +282,4 @@ class BorrowBookView(APIView):
                 return Response({'message': 'Book out of stock.'}, status=status.HTTP_400_BAD_REQUEST)
         except Book.DoesNotExist:
             return Response({'message': 'Book not found.'}, status=status.HTTP_404_NOT_FOUND)
+

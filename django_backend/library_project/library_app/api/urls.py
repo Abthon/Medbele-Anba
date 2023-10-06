@@ -19,12 +19,12 @@ from .views import (
 urlpatterns = [
     #App related Endpoints
     path('', APIEndpoints.as_view(), name='home'),
-    path('borrow/<int:book_id>/', BorrowBookView.as_view(), name='borrow-book'),
-    path('books/', BookList.as_view(), name='books'),
     path('search/', SearchBook.as_view(), name='search-books'),
+    path('books/', BookList.as_view(), name='books'),
     path('borrowed-books/', BorrowedBooksList.as_view(), name='borrowed-books'),
-    path('favorite/<int:book_id>/', ToggleFavoriteView.as_view(), name='favorite'),
+    path('borrow/<int:book_id>/', BorrowBookView.as_view(), name='borrow-book'),
     path('favorited-books/', FavoritedBooksList.as_view(), name='favorited -books'),
+    path('favorite/<int:book_id>/', ToggleFavoriteView.as_view(), name='favorite'),
     
     #User related Endpoints
     path('users/', UserList.as_view(), name='users'),
