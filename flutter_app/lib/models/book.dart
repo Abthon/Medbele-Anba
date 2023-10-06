@@ -6,12 +6,16 @@ class Book {
     required this.title,
     required this.author,
     required this.cover_image,
+    required this.quantity,
+    required this.inserted_date,
   });
 
   int id;
+  int quantity;
   String isbn;
   String title;
   String author;
+  String inserted_date;
   String cover_image;
 
   // Create book's factory constructor
@@ -21,6 +25,8 @@ class Book {
       isbn: json['isbn'] as String,
       title: json['title'] as String,
       author: json['author'] as String,
+      quantity: json['quantity'] as int,
+      inserted_date: json['inserted_date'] as String,
       cover_image: json['cover_image'] as String,
     );
   }
@@ -32,6 +38,8 @@ class Book {
       'isbn': isbn,
       'title': title,
       'author': author,
+      'quantity': quantity,
+      'inserted_date': inserted_date,
       'cover_image': cover_image,
     };
   }

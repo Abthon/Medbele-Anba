@@ -264,7 +264,7 @@ class BookDetailPage extends ConsumerWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    book.isbn,
+                                    book.inserted_date.split('T')[0],
                                     style: GoogleFonts.delius(
                                       color: Colors.black,
                                       fontWeight: FontWeight.bold,
@@ -315,7 +315,7 @@ class BookDetailPage extends ConsumerWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    '100',
+                                    '${book.quantity}',
                                     style: GoogleFonts.delius(
                                       color: Colors.black,
                                       fontWeight: FontWeight.bold,

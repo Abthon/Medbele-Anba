@@ -95,7 +95,6 @@ class UserData {
   Map<String, dynamic> userData = {};
 
   Future<Map<String, dynamic>> fetchUserData() async {
-    print("fetching bruv jj");
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('access');
     final response = await http.get(

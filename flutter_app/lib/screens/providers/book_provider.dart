@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'package:jwt_decoder/jwt_decoder.dart';
 import '../../utils/constants.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -25,26 +25,41 @@ final borrowedBookDataProvider = FutureProvider<List<Book>>(
 class BookData {
   Future<List<Book>> fetchAllBooks() async {
     final prefs = await SharedPreferences.getInstance();
-    final token = prefs.getString('access');
+    var token = prefs.getString('access');
+    var refresh = prefs.getString('refresh');
+
+    if (JwtDecoder.isExpired(token!)) {
+      final response = await http.post(
+        Uri.parse('$baseUrl/api/token/refresh/'),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode(
+          {'refresh': '$refresh'},
+        ),
+      );
+      prefs.setString('access', jsonDecode(response.body)['access']);
+      prefs.setString('refresh', jsonDecode(response.body)['refresh']);
+      token = prefs.getString('access');
+      refresh = prefs.getString('refresh');
+    }
+
     final response = await http.get(
       Uri.parse('${baseUrl}books/'),
       headers: {
         'Authorization': 'Bearer $token',
       },
     );
-    print("status code ${response.statusCode}");
-    print(token);
 
     if (response.statusCode == 200) {
       List<dynamic> bookData = jsonDecode(response.body);
       bookData = bookData.cast<Map<String, dynamic>>().toList();
-
       final listOfBooks = bookData.map(
         (data) => Book(
           id: data['id'],
           isbn: data['isbn'],
           title: data['title'],
           author: data['author'],
+          quantity: data['quantity'],
+          inserted_date: data['inserted_date'],
           cover_image: data['cover_image'],
         ),
       );
@@ -55,13 +70,25 @@ class BookData {
   }
 
   Future<List<Book>> searchBooks(String query) async {
-    final Uri uri = Uri.parse('${baseUrl}search/?query=$query');
-
     try {
       final prefs = await SharedPreferences.getInstance();
-      final token = prefs.getString('access');
+      var token = prefs.getString('access');
+      var refresh = prefs.getString('refresh');
+      if (JwtDecoder.isExpired(token!)) {
+        final response = await http.post(
+          Uri.parse('$baseUrl/api/token/refresh/'),
+          headers: {'Content-Type': 'application/json'},
+          body: jsonEncode(
+            {'refresh': '$refresh'},
+          ),
+        );
+        prefs.setString('access', jsonDecode(response.body)['access']);
+        prefs.setString('refresh', jsonDecode(response.body)['refresh']);
+        token = prefs.getString('access');
+        refresh = prefs.getString('refresh');
+      }
       final response = await http.get(
-        uri,
+        Uri.parse('${baseUrl}search/?query=$query'),
         headers: {
           'Authorization': 'Bearer $token',
         },
@@ -77,10 +104,11 @@ class BookData {
             isbn: data['isbn'],
             title: data['title'],
             author: data['author'],
+            quantity: data['quantity'],
+            inserted_date: data['inserted_date'],
             cover_image: data['cover_image'],
           ),
         );
-        print('Search results: ${listOfBooks}');
         return listOfBooks.toList();
       } else {
         throw Exception('Error: ${response.statusCode}');
@@ -92,7 +120,22 @@ class BookData {
 
   Future<String> favoriteBook(int id) async {
     final pref = await SharedPreferences.getInstance();
-    final token = pref.getString('access');
+    var token = pref.getString('access');
+    var refresh = pref.getString('refresh');
+    if (JwtDecoder.isExpired(token!)) {
+      final response = await http.post(
+        Uri.parse('$baseUrl/api/token/refresh/'),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode(
+          {'refresh': '$refresh'},
+        ),
+      );
+      pref.setString('access', jsonDecode(response.body)['access']);
+      pref.setString('refresh', jsonDecode(response.body)['refresh']);
+      token = pref.getString('access');
+      refresh = pref.getString('refresh');
+    }
+
     final response = await http.post(Uri.parse('${baseUrl}favorite/$id/'),
         headers: {'Authorization': "Bearer $token"});
     if (response.statusCode == 201) {
@@ -106,7 +149,21 @@ class BookData {
 
   Future<List<Book>> fetchListOfFavoriteBooks() async {
     final pref = await SharedPreferences.getInstance();
-    final token = pref.getString('access');
+    var token = pref.getString('access');
+    var refresh = pref.getString('refresh');
+    if (JwtDecoder.isExpired(token!)) {
+      final response = await http.post(
+        Uri.parse('$baseUrl/api/token/refresh/'),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode(
+          {'refresh': '$refresh'},
+        ),
+      );
+      pref.setString('access', jsonDecode(response.body)['access']);
+      pref.setString('refresh', jsonDecode(response.body)['refresh']);
+      token = pref.getString('access');
+      refresh = pref.getString('refresh');
+    }
     final response = await http.get(
       Uri.parse('${baseUrl}favorited-books/'),
       headers: {
@@ -115,7 +172,6 @@ class BookData {
     );
 
     if (response.statusCode == 200) {
-      print(response.body);
       final List<dynamic> listOfFavoriteBooks = jsonDecode(response.body);
       List<Book> listOfBooks = listOfFavoriteBooks
           .cast<Map<String, dynamic>>()
@@ -125,6 +181,8 @@ class BookData {
               title: json['book']['title'],
               author: json['book']['author'],
               isbn: json['book']['isbn'],
+              quantity: json['book']['quantity'],
+              inserted_date: json['book']['inserted_date'],
               cover_image: json['book']['cover_image'],
             ),
           )
@@ -137,7 +195,22 @@ class BookData {
 
   Future<List<Book>> fetchListOfBorrowedBooks() async {
     final pref = await SharedPreferences.getInstance();
-    final token = pref.getString('access');
+    var token = pref.getString('access');
+    var refresh = pref.getString('refresh');
+    if (JwtDecoder.isExpired(token!)) {
+      print("updating");
+      final response = await http.post(
+        Uri.parse('$baseUrl/api/token/refresh/'),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode(
+          {'refresh': '$refresh'},
+        ),
+      );
+      pref.setString('access', jsonDecode(response.body)['access']);
+      pref.setString('refresh', jsonDecode(response.body)['refresh']);
+      token = pref.getString('access');
+      refresh = pref.getString('refresh');
+    }
     final response = await http.get(
       Uri.parse('${baseUrl}borrowed-books/'),
       headers: {
@@ -146,7 +219,6 @@ class BookData {
     );
 
     if (response.statusCode == 200) {
-      print(response.body);
       final List<dynamic> listOfFavoriteBooks = jsonDecode(response.body);
       List<Book> listOfBooks = listOfFavoriteBooks
           .cast<Map<String, dynamic>>()
@@ -156,6 +228,8 @@ class BookData {
               title: json['book']['title'],
               author: json['book']['author'],
               isbn: json['book']['isbn'],
+              quantity: json['book']['quantity'],
+              inserted_date: json['book']['inserted_date'],
               cover_image: json['book']['cover_image'],
             ),
           )
@@ -168,7 +242,21 @@ class BookData {
 
   Future<String> borrowBook(int id) async {
     final pref = await SharedPreferences.getInstance();
-    final token = pref.getString('access');
+    var token = pref.getString('access');
+    var refresh = pref.getString('refresh');
+    if (JwtDecoder.isExpired(token!)) {
+      final response = await http.post(
+        Uri.parse('$baseUrl/api/token/refresh/'),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode(
+          {'refresh': '$refresh'},
+        ),
+      );
+      pref.setString('access', jsonDecode(response.body)['access']);
+      pref.setString('refresh', jsonDecode(response.body)['refresh']);
+      token = pref.getString('access');
+      refresh = pref.getString('refresh');
+    }
     final response = await http.post(Uri.parse('${baseUrl}borrow/$id/'),
         headers: {'Authorization': "Bearer $token"});
     if (response.statusCode == 200) {

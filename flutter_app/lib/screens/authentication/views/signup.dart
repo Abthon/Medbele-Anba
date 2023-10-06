@@ -22,7 +22,6 @@ class _SignUpState extends State<SignUp> {
 
   @override
   Widget build(BuildContext context) {
-    print("Builded");
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -384,18 +383,6 @@ class _SignUpState extends State<SignUp> {
                               ),
                             ),
                           ),
-                          const Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 5),
-                            child: Row(
-                              children: <Widget>[
-                                Checkbox(
-                                  value: false,
-                                  onChanged: null,
-                                ),
-                                Text('I accept BookBox policy and terms'),
-                              ],
-                            ),
-                          ),
                           const SizedBox(
                             height: 20,
                           ),
@@ -407,7 +394,6 @@ class _SignUpState extends State<SignUp> {
                                     await ref
                                         .read(userControllerProvider.notifier)
                                         .createUser();
-                                    print("Alkuwal");
                                   }
                                 },
                                 child: Container(

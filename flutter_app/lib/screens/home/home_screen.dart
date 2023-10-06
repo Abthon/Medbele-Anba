@@ -17,7 +17,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final _controller = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     return Consumer(
@@ -88,6 +87,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 .then(
                               (books) {
                                 if (books.isEmpty) {
+                                  print('book is empty');
                                   // show the alert dialoge
                                 } else {
                                   Navigator.of(context).push(
